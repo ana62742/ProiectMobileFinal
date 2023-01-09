@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ProiectMobileFinal.Models"
+             xmlns:viewModels="clr-namespace:ProiectMobileFinal.ViewModels"
+             x:Class="ProiectMobileFinal.Views.AddUpdateConcert"
+             Title="AddUpdateConcert">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="TextColor" Value="SlateGray" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout Margin="10" Spacing="15">
+        <VerticalStackLayout>
+            <Label Text="Concert Name" FontSize="16" />
+            <Entry Text="{Binding ConcertDetail.Name}" Placeholder="Concert Name"/>
+            <BoxView HeightRequest="0.8" Color="Grey"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout>
+            <Label Text="Description" FontSize="16" />
+            <Entry Text="{Binding ConcertDetail.Description}" Placeholder="Description"/>
+            <BoxView HeightRequest="0.8" Color="Grey"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout>
+            <Label Text="Concert Date" FontSize="16" />
+            <DatePicker  MinimumDate="01/01/2023"
+                         Date="{Binding ConcertDetail.Date}"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout>
+            <Label Text="Image URL" FontSize="16" />
+            <Entry Text="{Binding ConcertDetail.Image}" Placeholder="Concert Poster"/>
+            <BoxView HeightRequest="0.8" Color="Grey"/>
+        </VerticalStackLayout>
+
+        <Button Text="Save"
+                Command="{Binding AddUpdateConcertCommand}"
+                BackgroundColor="Black"
+                Padding="16" 
+                CornerRadius="2" 
+                VerticalOptions="Center"/>
+    </StackLayout>
+</ContentPage>

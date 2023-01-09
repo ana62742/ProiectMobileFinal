@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ProiectMobileFinal.Models"
+             xmlns:searchHandlers="clr-namespace:ProiectMobileFinal.SearchHandlers"
+             xmlns:viewModels="clr-namespace:ProiectMobileFinal.ViewModels"
+             x:DataType="viewModels:ConcertListPageViewModel"
+             x:Class="ProiectMobileFinal.Views.ConcertListPage"
+             Title="ConcertListPage">
+    <Shell.SearchHandler>
+        <searchHandlers:ConcertSearchHandler 
+            Placeholder="Search Name"
+            ShowsResults="True"
+            QueryIcon="search"
+            ClearIcon="clear"
+            NavigationRoute="AddUpdateConcert"
+            Concerts="{x:Static viewModels:ConcertListPageViewModel.ConcertsListForSearch}">
+            <searchHandlers:ConcertSearchHandler.ItemTemplate>
+                <DataTemplate x:DataType="models:ConcertModel">
+                    <Grid Margin="5" RowDefinitions="Auto" ColumnDefinitions="40,Auto">
+                        <Image Grid.Row="0" Grid.Column="0" Source="user" HeightRequest="35" WidthRequest="35" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" FontSize="18" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </searchHandlers:ConcertSearchHandler.ItemTemplate>
+        </searchHandlers:ConcertSearchHandler>
+    </Shell.SearchHandler>
+
+    <StackLayout Margin="10">
+        <HorizontalStackLayout>
+            <Label FontSize="24" Text="Your Upcoming "/>
+            <Label FontSize="24" Text="Concerts" TextColor="#008b8b" FontAttributes="Bold"/>
+        </HorizontalStackLayout>
+
+        <CollectionView ItemsSource="{Binding Concerts}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ConcertModel">
+                    <Frame Margin="10" Padding="10">
+                        <StackLayout Margin="10" Spacing="15">
+                            <Image Source="{Binding Image}"
+                                   HeightRequest="150"/>
+                            <Label Text="{Binding Name}" 
+                                   FontSize="20" 
+                                   FontAttributes="Bold" 
+                                   TextColor="DarkCyan" />
+                            <Label Text="{Binding Date}" 
+                                   FontSize="14"/>
+                            <Label Text="{Binding Description}" 
+                                   FontSize="14" />
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:ConcertListPageViewModel}},Path=DisplayActionCommand}"
+                                                  CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Text="Add Concert" 
+                Command="{Binding AddUpdateConcertCommand}"
+                BackgroundColor="Black"
+                Padding="16" 
+                CornerRadius="2"
+                VerticalOptions="EndAndExpand"/>
+    </StackLayout>
+</ContentPage>
